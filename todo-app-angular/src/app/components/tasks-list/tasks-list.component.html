@@ -1,0 +1,63 @@
+<div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by title"
+        [(ngModel)]="title"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchTitle()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>Tasks List</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let task of tasks; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveTask(task, i)"
+      >
+        {{ task.title }}
+      </li>
+    </ul>
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllTasks()">
+      Eliminar todo
+    </button>
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentTask">
+      <h4>Task</h4>
+      <div>
+        <label><strong>Titulo:</strong></label> {{ currentTask.title }}
+      </div>
+      <div>
+        <label><strong>Descripción:</strong></label>
+        {{ currentTask.description }}
+      </div>
+      <div>
+        <label><strong>Estado:</strong></label>
+        {{ currentTask.completed ? "Realizado" : "Sin Realizar" }}
+      </div>
+
+      <a class="btn btn-warning" href="/tasks/{{ currentTask.id }}">
+        Editar
+      </a>
+    </div>
+
+    <div *ngIf="!currentTask">
+      <br/>
+      <p>Haga click en un item para más detalles...</p>
+    </div>
+  </div>
+</div>

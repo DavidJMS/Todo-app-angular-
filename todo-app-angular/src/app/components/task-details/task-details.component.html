@@ -1,0 +1,60 @@
+<div *ngIf="currentTask" class="edit-form">
+  <h4>Task</h4>
+  <form>
+    <div class="form-group">
+      <label for="title">Titulo</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        [(ngModel)]="currentTask.title"
+        name="title"
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        [(ngModel)]="currentTask.description"
+        name="description"
+      />
+    </div>
+
+    <div class="form-group">
+      <label><strong>Estado:</strong></label>
+      {{ currentTask.completed ? "Realizado" : "Sin realizar" }}
+    </div>
+  </form>
+
+  <button
+    class="btn btn-primary mr-2"
+    *ngIf="currentTask.completed"
+    (click)="updateTaskStatus(false)"
+  >
+    Sin Realizar
+  </button>
+  <button
+    *ngIf="!currentTask.completed"
+    class="btn btn-primary mr-2"
+    (click)="updateTaskStatus(true)"
+  >
+    Realizado
+  </button>
+
+  <button class="btn btn-danger mr-2" (click)="deleteTask()">
+    Eliminar
+  </button>
+
+  <button type="submit" class="btn btn-success" (click)="updateTask()">
+    Actualizar
+  </button>
+
+  <p>{{ message }}</p>
+</div>
+
+<div *ngIf="!currentTask">
+  <br />
+  <p>Esta task no existe...</p>
+</div>
